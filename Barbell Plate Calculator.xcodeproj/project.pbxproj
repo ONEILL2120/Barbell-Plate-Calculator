@@ -12,7 +12,18 @@
 		A6220E6C207A8950002A39EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6220E6A207A8950002A39EE /* Main.storyboard */; };
 		A6220E6E207A8950002A39EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6220E6D207A8950002A39EE /* Assets.xcassets */; };
 		A6220E71207A8950002A39EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6220E6F207A8950002A39EE /* LaunchScreen.storyboard */; };
+		A62567C4208CE88000D38028 /* PlateCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62567C3208CE88000D38028 /* PlateCalculatorTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A62567C6208CE88000D38028 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6220E5B207A8950002A39EE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6220E62207A8950002A39EE;
+			remoteInfo = "Barbell Plate Calculator";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A6220E63207A8950002A39EE /* Barbell Plate Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Barbell Plate Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,10 +33,20 @@
 		A6220E6D207A8950002A39EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6220E70207A8950002A39EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A6220E72207A8950002A39EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A62567C1208CE88000D38028 /* PlateCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlateCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A62567C3208CE88000D38028 /* PlateCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlateCalculatorTests.swift; sourceTree = "<group>"; };
+		A62567C5208CE88000D38028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A6220E60207A8950002A39EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A62567BE208CE88000D38028 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				A6220E65207A8950002A39EE /* Barbell Plate Calculator */,
+				A62567C2208CE88000D38028 /* PlateCalculatorTests */,
 				A6220E64207A8950002A39EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				A6220E63207A8950002A39EE /* Barbell Plate Calculator.app */,
+				A62567C1208CE88000D38028 /* PlateCalculatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -62,6 +85,15 @@
 				A6220E72207A8950002A39EE /* Info.plist */,
 			);
 			path = "Barbell Plate Calculator";
+			sourceTree = "<group>";
+		};
+		A62567C2208CE88000D38028 /* PlateCalculatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				A62567C3208CE88000D38028 /* PlateCalculatorTests.swift */,
+				A62567C5208CE88000D38028 /* Info.plist */,
+			);
+			path = PlateCalculatorTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,19 +116,42 @@
 			productReference = A6220E63207A8950002A39EE /* Barbell Plate Calculator.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A62567C0208CE88000D38028 /* PlateCalculatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A62567CA208CE88000D38028 /* Build configuration list for PBXNativeTarget "PlateCalculatorTests" */;
+			buildPhases = (
+				A62567BD208CE88000D38028 /* Sources */,
+				A62567BE208CE88000D38028 /* Frameworks */,
+				A62567BF208CE88000D38028 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A62567C7208CE88000D38028 /* PBXTargetDependency */,
+			);
+			name = PlateCalculatorTests;
+			productName = PlateCalculatorTests;
+			productReference = A62567C1208CE88000D38028 /* PlateCalculatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		A6220E5B207A8950002A39EE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = oneilldvlpr;
 				TargetAttributes = {
 					A6220E62207A8950002A39EE = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+					};
+					A62567C0208CE88000D38028 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A6220E62207A8950002A39EE;
 					};
 				};
 			};
@@ -114,6 +169,7 @@
 			projectRoot = "";
 			targets = (
 				A6220E62207A8950002A39EE /* Barbell Plate Calculator */,
+				A62567C0208CE88000D38028 /* PlateCalculatorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -129,6 +185,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A62567BF208CE88000D38028 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -141,7 +204,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A62567BD208CE88000D38028 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A62567C4208CE88000D38028 /* PlateCalculatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A62567C7208CE88000D38028 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6220E62207A8950002A39EE /* Barbell Plate Calculator */;
+			targetProxy = A62567C6208CE88000D38028 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A6220E6A207A8950002A39EE /* Main.storyboard */ = {
@@ -304,6 +383,42 @@
 			};
 			name = Release;
 		};
+		A62567C8208CE88000D38028 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VFUK7FQQ2Q;
+				INFOPLIST_FILE = PlateCalculatorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.oneilldvlpr.PlateCalculatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Barbell Plate Calculator.app/Barbell Plate Calculator";
+			};
+			name = Debug;
+		};
+		A62567C9208CE88000D38028 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VFUK7FQQ2Q;
+				INFOPLIST_FILE = PlateCalculatorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.oneilldvlpr.PlateCalculatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Barbell Plate Calculator.app/Barbell Plate Calculator";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -321,6 +436,15 @@
 			buildConfigurations = (
 				A6220E76207A8950002A39EE /* Debug */,
 				A6220E77207A8950002A39EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A62567CA208CE88000D38028 /* Build configuration list for PBXNativeTarget "PlateCalculatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A62567C8208CE88000D38028 /* Debug */,
+				A62567C9208CE88000D38028 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

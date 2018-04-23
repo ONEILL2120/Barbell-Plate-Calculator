@@ -8,11 +8,42 @@
 
 import UIKit
 
-
+class PlateCalculator {
+    
+    private let plates : [Float] = [25, 20, 15, 10, 5, 2.5, 1.25]
+    
+    
+    public func calculate(weightInKg weight: Float) -> [Float] {
+        
+        let barWeight: Float = 20
+        
+        var weightToAddToBar = weight - barWeight
+        
+        var result = [Float]()
+        
+        for index in plates.indices {
+            
+            while weightToAddToBar / plates[index] >= 2 {
+                
+                weightToAddToBar -= (plates[index] * 2)
+                
+                result.append(plates[index])
+                result.append(plates[index])
+                
+            }
+            
+        }
+        
+        return result
+        
+    }
+    
+    
+}
 
 class ViewController: UIViewController {
     
-    let plates : [Float] = [25, 20, 15, 10, 5, 2.5, 1.25]
+    var plates : [Float] = [25, 20, 15, 10, 5, 2.5, 1.25]
     
     @IBOutlet weak var weightTextField: UITextField!
     
@@ -20,40 +51,23 @@ class ViewController: UIViewController {
     
     @IBAction func calculatePlates(_ sender: Any) {
         
+        let calc = PlateCalculator()
         
+        let weight = Float(weightTextField.text ?? "0")
+        let result = calc.calculate(weightInKg: weight!)
         
-        for plate in plates {
-            
-            print(plate)
-            
-        }
+        platesNeeded.text = result.description
         
-        plateCalculation()
         
         
     }
     
-    func plateCalculation () {
-
-        var i : Float = 35
-        
-        if i / plates[0] != 0 {
-            
-            i = i - plates[0]
-            
-            print(i)
-            
-            platesNeeded.text = String(i)
-
-        }
-        
-        
-    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     override func didReceiveMemoryWarning() {
