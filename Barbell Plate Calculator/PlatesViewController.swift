@@ -21,6 +21,8 @@ class PlateCalculator {
         
         var result = [Float]()
         
+        var plate = 0
+        
         for index in plates.indices {
             
             while weightToAddToBar / plates[index] >= 2 {
@@ -29,8 +31,11 @@ class PlateCalculator {
                 
                 result.append(plates[index])
                 result.append(plates[index])
-                
+            
             }
+            
+            
+         
             
         }
         
@@ -41,24 +46,67 @@ class PlateCalculator {
     
 }
 
-class ViewController: UIViewController {
+
+
+enum Weights {
+    case twentyFiveKg
+    case twentyKg
+    case fifteenKg
+    case tenKg
+    case fiveKg
+    case twoAndAHalfKg
+    case oneAndAQuarterKg
+}
+
+struct PlateAssignment {
     
-    var plates : [Float] = [25, 20, 15, 10, 5, 2.5, 1.25]
+   
+        
+    
+    
+    //write test, does it need to be a function?
+    //research structs,enums etc.
+}
+
+
+
+class ViewController: UIViewController {
     
     @IBOutlet weak var weightTextField: UITextField!
     
     @IBOutlet weak var platesNeeded: UILabel!
+    
+    @IBOutlet weak var twentyFiveKgPlates: UILabel!
+    
+    @IBOutlet weak var fifteenKgPlates: UILabel!
+    
+    @IBOutlet weak var tenKgPlates: UILabel!
+    
+    @IBOutlet weak var fiveKgPlates: UILabel!
+    
+    @IBOutlet weak var twoAndAHalfKgPlates: UILabel!
+    
+    @IBOutlet weak var oneAndAQuarterKgPlates: UILabel!
     
     @IBAction func calculatePlates(_ sender: Any) {
         
         let calc = PlateCalculator()
         
         let weight = Float(weightTextField.text ?? "0")
+        
         let result = calc.calculate(weightInKg: weight!)
         
-        platesNeeded.text = result.description
+       //workout how to assign each number of weights to the correct label.
         
         
+        let countedSet = NSCountedSet(array:result)
+        
+        for value in countedSet.allObjects {
+            
+            print(countedSet.count(for: 25))
+            
+        }
+      
         
     }
     
