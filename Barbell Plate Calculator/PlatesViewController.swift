@@ -21,8 +21,6 @@ class PlateCalculator {
         
         var result = [Float]()
         
-        var plate = 0
-        
         for index in plates.indices {
             
             while weightToAddToBar / plates[index] >= 2 {
@@ -34,28 +32,28 @@ class PlateCalculator {
             
             }
             
-            
-         
-            
         }
         
         return result
-        
     }
-    
     
 }
 
-
-
-enum Weights {
-    case twentyFiveKg
-    case twentyKg
-    case fifteenKg
-    case tenKg
-    case fiveKg
-    case twoAndAHalfKg
-    case oneAndAQuarterKg
+enum Plate: Float {
+    case twentyFiveKg = 25
+    case twentyKg = 20
+    case fifteenKg = 15
+    case tenKg = 10
+    case fiveKg = 5
+    case twoAndAHalfKg = 2.5
+    case oneAndAQuarterKg = 1.25
+    
+    static let allCases = [twentyFiveKg, twentyKg, fifteenKg, tenKg, fiveKg, twoAndAHalfKg, oneAndAQuarterKg]
+    
+    var kg : Float {
+        
+        return self.rawValue
+    }
 }
 
 struct PlateAssignment {
@@ -74,40 +72,54 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var weightTextField: UITextField!
     
-    @IBOutlet weak var platesNeeded: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var twentyFiveKgPlates: UILabel!
     
-    @IBOutlet weak var fifteenKgPlates: UILabel!
     
-    @IBOutlet weak var tenKgPlates: UILabel!
-    
-    @IBOutlet weak var fiveKgPlates: UILabel!
-    
-    @IBOutlet weak var twoAndAHalfKgPlates: UILabel!
-    
-    @IBOutlet weak var oneAndAQuarterKgPlates: UILabel!
+    private var groupedPlates = [Plate: [Plate]]()
     
     @IBAction func calculatePlates(_ sender: Any) {
         
         let calc = PlateCalculator()
         
-        let weight = Float(weightTextField.text ?? "0")
-        
-        let result = calc.calculate(weightInKg: weight!)
-        
-       //workout how to assign each number of weights to the correct label.
-        
-        
-        let countedSet = NSCountedSet(array:result)
-        
-        for value in countedSet.allObjects {
+        guard let weightText = weightTextField.text, let weight = Float(weightText) else {
             
-            print(countedSet.count(for: 25))
-            
+            return
         }
+        
+        groupedPlates = self.calcGroupedPlates(plates: calc.calculate(weightInKg: weight))
+        
+        
+        
+        
+        
+        
       
         
+    }
+    
+    private func calcGroupedPlates (plates: [Plate]) -> [Plate:[Plate]] {
+        
+        var result = [Plate:[Plate]]()
+        
+        for plate in plates {
+            
+            if var plates = result[plate] {
+                
+                plates.append(plate)
+                result[plate] = plates
+                
+            } else {
+                
+                var plates = [Plate]()
+                plates.append(plate)
+                result[plate] = plates
+                
+            }
+            
+        }
+        
+        return result
     }
     
     
@@ -125,4 +137,27 @@ class ViewController: UIViewController {
 
 
 }
+
+extension ViewController: UITableViewDataSource {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Plate.allCases.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        
+        if cell == nil {
+            
+            cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+            
+        }
+        
+        
+        return cell!
+    }
+    
+}
+
+
 
