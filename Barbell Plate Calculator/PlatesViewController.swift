@@ -10,25 +10,27 @@ import UIKit
 
 class PlateCalculator {
     
-    private let plates : [Float] = [25, 20, 15, 10, 5, 2.5, 1.25]
+    private let plates : [Plate] = Plate.allCases
     
     
-    public func calculate(weightInKg weight: Float) -> [Float] {
+    public func calculate(weightInKg weight: Float) -> [Plate] {
         
         let barWeight: Float = 20
         
         var weightToAddToBar = weight - barWeight
         
-        var result = [Float]()
+        var result = [Plate]()
         
         for index in plates.indices {
             
-            while weightToAddToBar / plates[index] >= 2 {
+            let plate = plates[index]
+            
+            while weightToAddToBar / plate.kg >= 2 {
                 
-                weightToAddToBar -= (plates[index] * 2)
+                weightToAddToBar -= (plate.kg * 2)
                 
-                result.append(plates[index])
-                result.append(plates[index])
+                result.append(plate)
+                result.append(plate)
             
             }
             
@@ -74,7 +76,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    
+    let allPlates = Plate.allCases
     
     private var groupedPlates = [Plate: [Plate]]()
     
@@ -87,14 +89,9 @@ class ViewController: UIViewController {
             return
         }
         
-        groupedPlates = self.calcGroupedPlates(plates: calc.calculate(weightInKg: weight))
-        
-        
-        
-        
-        
-        
-      
+        let plates = calc.calculate(weightInKg: weight)
+        groupedPlates = self.calcGroupedPlates(plates: plates)
+        tableView.reloadData()
         
     }
     
@@ -141,7 +138,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Plate.allCases.count
+        return allPlates.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,10 +146,31 @@ extension ViewController: UITableViewDataSource {
         
         if cell == nil {
             
-            cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             
         }
         
+        let plate = allPlates[indexPath.row]
+        
+        cell?.textLabel?.text = "\(plate.kg) KG"
+        cell?.textLabel?.textColor = UIColor.red
+        let bgColour = UIView()
+        
+        
+        if let plates = groupedPlates[plate] {
+            cell?.detailTextLabel?.text = "\(plates.count)"
+
+            /*
+            cell?.textLabel?.textColor = UIColor.white
+            cell?.backgroundColor = UIColor.black
+            let bgColour = UIView()  
+            bgColour.backgroundColor = UIColor.red
+            cell?.selectedBackgroundView = bgColour
+             
+            not sure the above is needed?
+            */
+            
+        }
         
         return cell!
     }
