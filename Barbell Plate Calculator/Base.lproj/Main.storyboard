@@ -18,16 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barbell Plate Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHj-y1-TmS">
-                                <rect key="frame" x="16" y="20" width="343" height="26"/>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.G. 50Kg..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kJu-nc-AtD">
-                                <rect key="frame" x="16" y="128.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="129" width="343" height="30"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter weight below:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="td8-we-9vI">
                                 <rect key="frame" x="16" y="98" width="181" height="23"/>
@@ -43,30 +37,49 @@
                                     <action selector="calculatePlates:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wtn-t8-IWY"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="CVG-67-5r3">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="CVG-67-5r3">
                                 <rect key="frame" x="16" y="238" width="343" height="409"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="LnQ-jl-Cqi"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rqe-rp-tCc">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="largeTitleTextAttributes">
+                                    <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Barbell Plate Calculator" id="k19-Et-c3i">
+                                        <barButtonItem key="rightBarButtonItem" title="Setup" id="wId-pn-yJr">
+                                            <connections>
+                                                <segue destination="jp6-Gb-bO9" kind="show" id="9Ua-g2-LLC"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="CVG-67-5r3" secondAttribute="bottom" constant="20" symbolic="YES" id="2SC-yX-sta"/>
                             <constraint firstItem="td8-we-9vI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="5sx-k2-ffj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OEd-qr-MaD" secondAttribute="trailing" constant="121" id="CRx-qV-z6U"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="td8-we-9vI" secondAttribute="trailing" constant="178" id="G81-h8-3ad"/>
+                            <constraint firstItem="rqe-rp-tCc" firstAttribute="centerX" secondItem="kJu-nc-AtD" secondAttribute="centerX" id="MeG-il-8bF"/>
+                            <constraint firstItem="CVG-67-5r3" firstAttribute="top" secondItem="OEd-qr-MaD" secondAttribute="bottom" constant="8" symbolic="YES" id="NkS-Yq-PB2"/>
+                            <constraint firstItem="rqe-rp-tCc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PJt-7X-crs"/>
+                            <constraint firstItem="td8-we-9vI" firstAttribute="top" secondItem="rqe-rp-tCc" secondAttribute="bottom" constant="34" id="Rzs-WO-GNt"/>
+                            <constraint firstItem="td8-we-9vI" firstAttribute="leading" secondItem="CVG-67-5r3" secondAttribute="leading" id="SJC-rr-Iz8"/>
                             <constraint firstItem="OEd-qr-MaD" firstAttribute="top" secondItem="kJu-nc-AtD" secondAttribute="bottom" constant="36.5" id="Zz9-Or-gY3"/>
                             <constraint firstItem="OEd-qr-MaD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="120" id="bMN-0U-FH4"/>
-                            <constraint firstItem="kHj-y1-TmS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="bwJ-7v-VEK"/>
                             <constraint firstItem="kJu-nc-AtD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="eVZ-IQ-Q8X"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kHj-y1-TmS" secondAttribute="trailing" constant="16" id="eav-r4-yqa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kJu-nc-AtD" secondAttribute="trailing" constant="16" id="gpG-TK-rNq"/>
                             <constraint firstItem="kJu-nc-AtD" firstAttribute="top" secondItem="td8-we-9vI" secondAttribute="bottom" constant="8" id="hEo-WJ-tCh"/>
-                            <constraint firstItem="td8-we-9vI" firstAttribute="top" secondItem="kHj-y1-TmS" secondAttribute="bottom" constant="52" id="mT1-xf-Z5M"/>
-                            <constraint firstItem="kHj-y1-TmS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yR0-jp-DIT"/>
+                            <constraint firstItem="td8-we-9vI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="98" id="ndQ-4u-hkz"/>
+                            <constraint firstItem="CVG-67-5r3" firstAttribute="trailing" secondItem="kJu-nc-AtD" secondAttribute="trailing" id="njp-b6-jwL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -78,6 +91,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-98.400000000000006" y="117.39130434782609"/>
+        </scene>
+        <!--Setup View Controller-->
+        <scene sceneID="e9h-yq-BGK">
+            <objects>
+                <viewController id="jp6-Gb-bO9" customClass="SetupViewController" customModule="Barbell_Plate_Calculator" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kgv-XC-dyA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H1b-Hn-dhs">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <navigationItem title="Setup" id="U61-8t-ToD">
+                                        <barButtonItem key="rightBarButtonItem" title="Calculator" id="hgp-eq-og9">
+                                            <connections>
+                                                <segue destination="BYZ-38-t0r" kind="show" id="RJg-gS-lid"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cm5-mU-zQ8">
+                                <rect key="frame" x="16" y="123" width="343" height="337"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Weights available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5r-GN-QUT">
+                                <rect key="frame" x="93" y="94" width="193" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Cm5-mU-zQ8" firstAttribute="leading" secondItem="4sg-H7-wQ9" secondAttribute="leading" constant="16" id="53S-oj-Aga"/>
+                            <constraint firstItem="v5r-GN-QUT" firstAttribute="centerX" secondItem="4sg-H7-wQ9" secondAttribute="centerX" constant="2" id="9VL-2j-uU8"/>
+                            <constraint firstItem="4sg-H7-wQ9" firstAttribute="trailing" secondItem="Cm5-mU-zQ8" secondAttribute="trailing" constant="16" id="9ik-MI-PcG"/>
+                            <constraint firstItem="v5r-GN-QUT" firstAttribute="top" secondItem="4sg-H7-wQ9" secondAttribute="top" constant="74" id="RHY-Ja-I4E"/>
+                            <constraint firstItem="4sg-H7-wQ9" firstAttribute="bottom" secondItem="Cm5-mU-zQ8" secondAttribute="bottom" constant="207" id="hHh-ax-gvk"/>
+                            <constraint firstItem="Cm5-mU-zQ8" firstAttribute="top" secondItem="v5r-GN-QUT" secondAttribute="bottom" constant="8" id="khy-OL-pDC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4sg-H7-wQ9"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wk9-9f-ykO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-786.39999999999998" y="116.49175412293854"/>
         </scene>
     </scenes>
 </document>

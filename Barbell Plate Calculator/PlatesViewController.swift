@@ -58,16 +58,6 @@ enum Plate: Float {
     }
 }
 
-struct PlateAssignment {
-    
-   
-        
-    
-    
-    //write test, does it need to be a function?
-    //research structs,enums etc.
-}
-
 
 
 class ViewController: UIViewController {
@@ -153,22 +143,14 @@ extension ViewController: UITableViewDataSource {
         let plate = allPlates[indexPath.row]
         
         cell?.textLabel?.text = "\(plate.kg) KG"
-        cell?.textLabel?.textColor = UIColor.red
-        let bgColour = UIView()
+        
+       
         
         
         if let plates = groupedPlates[plate] {
             cell?.detailTextLabel?.text = "\(plates.count)"
-
-            /*
-            cell?.textLabel?.textColor = UIColor.white
-            cell?.backgroundColor = UIColor.black
-            let bgColour = UIView()  
-            bgColour.backgroundColor = UIColor.red
-            cell?.selectedBackgroundView = bgColour
-             
-            not sure the above is needed?
-            */
+            cell?.textLabel?.textColor = UIColor.black
+            
             
         }
         
