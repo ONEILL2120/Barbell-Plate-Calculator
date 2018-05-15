@@ -10,56 +10,103 @@ import UIKit
 
 class PlateCalculator {
     
-    private let plates : [Float] = [25, 20, 15, 10, 5, 2.5, 1.25]
+    private let plates : [Plate] = Plate.allCases
     
     
-    public func calculate(weightInKg weight: Float) -> [Float] {
+    public func calculate(weightInKg weight: Float) -> [Plate] {
         
         let barWeight: Float = 20
         
         var weightToAddToBar = weight - barWeight
         
-        var result = [Float]()
+        var result = [Plate]()
         
         for index in plates.indices {
             
-            while weightToAddToBar / plates[index] >= 2 {
+            let plate = plates[index]
+            
+            while weightToAddToBar / plate.kg >= 2 {
                 
-                weightToAddToBar -= (plates[index] * 2)
+                weightToAddToBar -= (plate.kg * 2)
                 
-                result.append(plates[index])
-                result.append(plates[index])
+                result.append(plate)
+                result.append(plate)
+            
+            }
+            
+        }
+        
+        return result
+    }
+    
+}
+
+enum Plate: Float {
+    case twentyFiveKg = 25
+    case twentyKg = 20
+    case fifteenKg = 15
+    case tenKg = 10
+    case fiveKg = 5
+    case twoAndAHalfKg = 2.5
+    case oneAndAQuarterKg = 1.25
+    
+    static let allCases = [twentyFiveKg, twentyKg, fifteenKg, tenKg, fiveKg, twoAndAHalfKg, oneAndAQuarterKg]
+    
+    var kg : Float {
+        
+        return self.rawValue
+    }
+}
+
+
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var weightTextField: UITextField!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    let allPlates = Plate.allCases
+    
+    private var groupedPlates = [Plate: [Plate]]()
+    
+    @IBAction func calculatePlates(_ sender: Any) {
+        
+        let calc = PlateCalculator()
+        
+        guard let weightText = weightTextField.text, let weight = Float(weightText) else {
+            
+            return
+        }
+        
+        let plates = calc.calculate(weightInKg: weight)
+        groupedPlates = self.calcGroupedPlates(plates: plates)
+        tableView.reloadData()
+        
+    }
+    
+    private func calcGroupedPlates (plates: [Plate]) -> [Plate:[Plate]] {
+        
+        var result = [Plate:[Plate]]()
+        
+        for plate in plates {
+            
+            if var plates = result[plate] {
+                
+                plates.append(plate)
+                result[plate] = plates
+                
+            } else {
+                
+                var plates = [Plate]()
+                plates.append(plate)
+                result[plate] = plates
                 
             }
             
         }
         
         return result
-        
-    }
-    
-    
-}
-
-class ViewController: UIViewController {
-    
-    var plates : [Float] = [25, 20, 15, 10, 5, 2.5, 1.25]
-    
-    @IBOutlet weak var weightTextField: UITextField!
-    
-    @IBOutlet weak var platesNeeded: UILabel!
-    
-    @IBAction func calculatePlates(_ sender: Any) {
-        
-        let calc = PlateCalculator()
-        
-        let weight = Float(weightTextField.text ?? "0")
-        let result = calc.calculate(weightInKg: weight!)
-        
-        platesNeeded.text = result.description
-        
-        
-        
     }
     
     
@@ -77,4 +124,40 @@ class ViewController: UIViewController {
 
 
 }
+
+extension ViewController: UITableViewDataSource {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allPlates.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        
+        if cell == nil {
+            
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+            
+        }
+        
+        let plate = allPlates[indexPath.row]
+        
+        cell?.textLabel?.text = "\(plate.kg) KG"
+        
+       
+        
+        
+        if let plates = groupedPlates[plate] {
+            cell?.detailTextLabel?.text = "\(plates.count)"
+            cell?.textLabel?.textColor = UIColor.black
+            
+            
+        }
+        
+        return cell!
+    }
+    
+}
+
+
 
