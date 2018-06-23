@@ -81,9 +81,17 @@ class ViewController: UIViewController {
         
         let plates = calc.calculate(weightInKg: weight)
         groupedPlates = self.calcGroupedPlates(plates: plates)
-        tableView.reloadData()
+        
+        tableView.beginUpdates()
+        tableView.reloadSections(IndexSet.init(integer:0), with: .automatic)
+        tableView.endUpdates()
+        
+        
+        
         
     }
+    
+    
     
     private func calcGroupedPlates (plates: [Plate]) -> [Plate:[Plate]] {
         
@@ -114,6 +122,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        tableView.dataSource = self
         
     }
 
@@ -132,6 +141,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         
         if cell == nil {
@@ -139,24 +149,21 @@ extension ViewController: UITableViewDataSource {
             cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             
         }
+      
         
         let plate = allPlates[indexPath.row]
         
         cell?.textLabel?.text = "\(plate.kg) KG"
-        
-       
         
         
         if let plates = groupedPlates[plate] {
             cell?.detailTextLabel?.text = "\(plates.count)"
             cell?.textLabel?.textColor = UIColor.black
             
-            
         }
         
         return cell!
     }
-    
 }
 
 

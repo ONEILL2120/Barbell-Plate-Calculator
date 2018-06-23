@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OEd-qr-MaD">
-                                <rect key="frame" x="120" y="195" width="134" height="35"/>
+                                <rect key="frame" x="120" y="195.5" width="134" height="35"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Get Plates!"/>
                                 <connections>
@@ -38,7 +38,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="CVG-67-5r3">
-                                <rect key="frame" x="16" y="238" width="343" height="409"/>
+                                <rect key="frame" x="16" y="238.5" width="343" height="408.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -53,11 +53,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Barbell Plate Calculator" id="k19-Et-c3i">
-                                        <barButtonItem key="rightBarButtonItem" title="Setup" id="wId-pn-yJr">
-                                            <connections>
-                                                <segue destination="jp6-Gb-bO9" kind="show" id="9Ua-g2-LLC"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Setup" id="wId-pn-yJr"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -91,55 +87,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-98.400000000000006" y="117.39130434782609"/>
-        </scene>
-        <!--Setup View Controller-->
-        <scene sceneID="e9h-yq-BGK">
-            <objects>
-                <viewController id="jp6-Gb-bO9" customClass="SetupViewController" customModule="Barbell_Plate_Calculator" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Kgv-XC-dyA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H1b-Hn-dhs">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <navigationItem title="Setup" id="U61-8t-ToD">
-                                        <barButtonItem key="rightBarButtonItem" title="Calculator" id="hgp-eq-og9">
-                                            <connections>
-                                                <segue destination="BYZ-38-t0r" kind="show" id="RJg-gS-lid"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cm5-mU-zQ8">
-                                <rect key="frame" x="16" y="123" width="343" height="337"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Weights available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5r-GN-QUT">
-                                <rect key="frame" x="93" y="94" width="193" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Cm5-mU-zQ8" firstAttribute="leading" secondItem="4sg-H7-wQ9" secondAttribute="leading" constant="16" id="53S-oj-Aga"/>
-                            <constraint firstItem="v5r-GN-QUT" firstAttribute="centerX" secondItem="4sg-H7-wQ9" secondAttribute="centerX" constant="2" id="9VL-2j-uU8"/>
-                            <constraint firstItem="4sg-H7-wQ9" firstAttribute="trailing" secondItem="Cm5-mU-zQ8" secondAttribute="trailing" constant="16" id="9ik-MI-PcG"/>
-                            <constraint firstItem="v5r-GN-QUT" firstAttribute="top" secondItem="4sg-H7-wQ9" secondAttribute="top" constant="74" id="RHY-Ja-I4E"/>
-                            <constraint firstItem="4sg-H7-wQ9" firstAttribute="bottom" secondItem="Cm5-mU-zQ8" secondAttribute="bottom" constant="207" id="hHh-ax-gvk"/>
-                            <constraint firstItem="Cm5-mU-zQ8" firstAttribute="top" secondItem="v5r-GN-QUT" secondAttribute="bottom" constant="8" id="khy-OL-pDC"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="4sg-H7-wQ9"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wk9-9f-ykO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-786.39999999999998" y="116.49175412293854"/>
         </scene>
     </scenes>
 </document>
