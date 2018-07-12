@@ -56,7 +56,10 @@ enum Plate: Float {
         
         return self.rawValue
     }
+    
 }
+
+
 
 
 
@@ -85,9 +88,6 @@ class ViewController: UIViewController {
         tableView.beginUpdates()
         tableView.reloadSections(IndexSet.init(integer:0), with: .automatic)
         tableView.endUpdates()
-        
-        
-        
         
     }
     
@@ -123,6 +123,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
+        navigationController?.navigationBar.prefersLargeTitles = true
         
     }
 
@@ -159,6 +160,9 @@ extension ViewController: UITableViewDataSource {
         if let plates = groupedPlates[plate] {
             cell?.detailTextLabel?.text = "\(plates.count)"
             cell?.textLabel?.textColor = UIColor.black
+            
+        } else {
+            cell?.detailTextLabel?.text = nil
             
         }
         

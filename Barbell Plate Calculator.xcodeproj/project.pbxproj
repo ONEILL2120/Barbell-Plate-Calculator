@@ -14,6 +14,7 @@
 		A6220E71207A8950002A39EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6220E6F207A8950002A39EE /* LaunchScreen.storyboard */; };
 		A62567C4208CE88000D38028 /* PlateCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62567C3208CE88000D38028 /* PlateCalculatorTests.swift */; };
 		A62567D2208F4FCB00D38028 /* PlateAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62567D1208F4FCB00D38028 /* PlateAssignmentTests.swift */; };
+		A66B60EC20E1116800D783D0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66B60EB20E1116800D783D0 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		A62567CF208F4FCB00D38028 /* PlateAssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlateAssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A62567D1208F4FCB00D38028 /* PlateAssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlateAssignmentTests.swift; sourceTree = "<group>"; };
 		A62567D3208F4FCB00D38028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A66B60EB20E1116800D783D0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				A6220E66207A8950002A39EE /* AppDelegate.swift */,
 				A6220E68207A8950002A39EE /* PlatesViewController.swift */,
 				A6220E6A207A8950002A39EE /* Main.storyboard */,
+				A66B60EB20E1116800D783D0 /* SettingsViewController.swift */,
 				A6220E6D207A8950002A39EE /* Assets.xcassets */,
 				A6220E6F207A8950002A39EE /* LaunchScreen.storyboard */,
 				A6220E72207A8950002A39EE /* Info.plist */,
@@ -261,6 +264,7 @@
 			files = (
 				A6220E69207A8950002A39EE /* PlatesViewController.swift in Sources */,
 				A6220E67207A8950002A39EE /* AppDelegate.swift in Sources */,
+				A66B60EC20E1116800D783D0 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
