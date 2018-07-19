@@ -12,28 +12,23 @@ class PlateCalculator {
     
     private let plates : [Plate] = Plate.allCases
     
-    
-    public func calculate(weightInKg weight: Float) -> [Plate] {
+    public func calculate(weightInKg weight: Float, availablePlates: [Plate:Int]) -> [Plate] {
         
         let barWeight: Float = 20
         
         var weightToAddToBar = weight - barWeight
         
         var result = [Plate]()
-        
-        for index in plates.indices {
+       
+        for (key, value) in availablePlates {
             
-            let plate = plates[index]
-            
-            while weightToAddToBar / plate.kg >= 2 {
+            while weightToAddToBar / key.kg >= 2 {
+                weightToAddToBar -= (key.kg * 2)
                 
-                weightToAddToBar -= (plate.kg * 2)
+                result.append(key)
+                result.append(key)
                 
-                result.append(plate)
-                result.append(plate)
-            
-            }
-            
+                }
         }
         
         return result
@@ -50,27 +45,26 @@ enum Plate: Float {
     case twoAndAHalfKg = 2.5
     case oneAndAQuarterKg = 1.25
     
+    
     static let allCases = [twentyFiveKg, twentyKg, fifteenKg, tenKg, fiveKg, twoAndAHalfKg, oneAndAQuarterKg]
     
     var kg : Float {
         
         return self.rawValue
+        }
     }
-    
-}
 
-
-
-
-
-class ViewController: UIViewController {
+class ViewController: UIViewController, PresentsAlert {
     
     @IBOutlet weak var weightTextField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
     
+    var availablePlates = [Plate:Int]()
+    
     let allPlates = Plate.allCases
     
+    //is this needed?
     private var groupedPlates = [Plate: [Plate]]()
     
     @IBAction func calculatePlates(_ sender: Any) {
@@ -82,7 +76,11 @@ class ViewController: UIViewController {
             return
         }
         
-        let plates = calc.calculate(weightInKg: weight)
+        if availablePlates.isEmpty {
+            createAlert(title: "Error", message: "No Plates Available!")
+        }
+        
+        let plates = calc.calculate(weightInKg: weight, availablePlates: availablePlates)
         groupedPlates = self.calcGroupedPlates(plates: plates)
         
         tableView.beginUpdates()
@@ -91,8 +89,7 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
+    //edit this to use availblePlates?
     private func calcGroupedPlates (plates: [Plate]) -> [Plate:[Plate]] {
         
         var result = [Plate:[Plate]]()
@@ -117,13 +114,11 @@ class ViewController: UIViewController {
         return result
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
-        navigationController?.navigationBar.prefersLargeTitles = true
+        
         
     }
 
@@ -131,9 +126,25 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowSettings" {
+            let settingsViewController = segue.destination as! SettingsViewController
+            settingsViewController.delegate = self
+        }
+    }
 
 
 }
+
+extension ViewController: SettingsViewControllerDelegate {
+   func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate : Int]) {
+        availablePlates = plateCount
+        
+       }
+    
+   }
 
 extension ViewController: UITableViewDataSource {
     
@@ -168,6 +179,28 @@ extension ViewController: UITableViewDataSource {
         
         return cell!
     }
+}
+
+protocol PresentsAlert {
+    func createAlert(title: String, message: String)
+}
+
+extension PresentsAlert where Self: UIViewController {
+    func createAlert(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showErrorAlert(error: Error) {
+        createAlert(title: "Error", message: error.localizedDescription)
+    }
+    
 }
 
 

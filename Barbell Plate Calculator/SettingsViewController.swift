@@ -8,79 +8,84 @@
 
 import UIKit
 
+protocol WeightTableViewCellDelegate: class {
+    func weightTableViewCell(_ cell: WeightTableViewCell, numberOfPlatesDidChange newValue: Int)
+    
+}
+
+
+
 class WeightTableViewCell: UITableViewCell {
+    
+    weak var delegate: WeightTableViewCellDelegate?
+    
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var numberOfPlates: UILabel!
     @IBOutlet weak var stepper: UIStepper!
     
     @IBAction func stepperAction(_ sender: UIStepper) {
-        numberOfPlates.text = Int(sender.value).description
-        
-        
-    }
-    
-    struct WeightSettings: stepperProtocol {
-        var weightSelected: [String : Int] = [:]
-        
-        var weightAmount: Int
-        
-        var weightType: String
-        
-        
+        let newValue = Int(sender.value)
+        numberOfPlates.text = newValue.description
+        delegate?.weightTableViewCell(self, numberOfPlatesDidChange: newValue)
         
     }
-    
 }
 
-protocol stepperProtocol {
-    var weightSelected: [String:Int] {get}
-    var weightType: String {get}
-    var weightAmount: Int {get}
-
-    
+protocol SettingsViewControllerDelegate: class {
+    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate:Int])
     
 }
-
-
-
-
-
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet weak var barbellSwitch: UISwitch!
+
+    weak var delegate: SettingsViewControllerDelegate?
     var plates = Plate.allCases
+    var platesCount = [Plate:Int]()
     
     @IBOutlet weak var setupTableView: UITableView!
     
     @IBAction func done(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+        delegate?.SettingsViewController(self, isDoneWithPlateCount: platesCount)
+        
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
         
         
         
         }
     
-    @IBAction func cancel(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        
-        
-        
+    @objc func switchIsChanged(barbellSwitch: UISwitch){
+        var barbellWeight = 0
+        if barbellSwitch.isOn {
+            barbellWeight = 20
+        } else {
+            barbellWeight = 15
         }
+        
+        print(barbellWeight)
+        
+    }
+    
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        barbellSwitch.addTarget(self, action: #selector(SettingsViewController.switchIsChanged(barbellSwitch:)), for: .valueChanged)
     }
 
 }
 
-extension SettingsViewController : UITableViewDataSource {
+extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return plates.count
     }
-    
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! WeightTableViewCell
@@ -88,12 +93,20 @@ extension SettingsViewController : UITableViewDataSource {
         
         let allPlates = plates[indexPath.row]
         cell.weightLabel.text = "\(allPlates.kg) KG"
-        
-        
+        cell.delegate = self
         
         return cell
     }
-    
-    
-    
+}
+
+extension SettingsViewController: WeightTableViewCellDelegate {
+    func weightTableViewCell(_ cell: WeightTableViewCell, numberOfPlatesDidChange newValue: Int) {
+        guard let indexPath = setupTableView.indexPath(for: cell) else {
+            return
+        }
+        
+        let plate = plates[indexPath.row]
+        platesCount[plate] = newValue
+        
+    }
 }
