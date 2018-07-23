@@ -32,9 +32,10 @@ class WeightTableViewCell: UITableViewCell {
 }
 
 protocol SettingsViewControllerDelegate: class {
-    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate:Int])
+    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate:Int], barbellWeightSelected: Float)
     
 }
+
 
 class SettingsViewController: UIViewController {
     
@@ -43,12 +44,14 @@ class SettingsViewController: UIViewController {
     weak var delegate: SettingsViewControllerDelegate?
     var plates = Plate.allCases
     var platesCount = [Plate:Int]()
+    var barbellWeight: Float = 20
+    
     
     @IBOutlet weak var setupTableView: UITableView!
     
     @IBAction func done(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        delegate?.SettingsViewController(self, isDoneWithPlateCount: platesCount)
+        delegate?.SettingsViewController(self, isDoneWithPlateCount: platesCount, barbellWeightSelected: barbellWeight)
         
     }
     
@@ -60,14 +63,11 @@ class SettingsViewController: UIViewController {
         }
     
     @objc func switchIsChanged(barbellSwitch: UISwitch){
-        var barbellWeight = 0
         if barbellSwitch.isOn {
             barbellWeight = 20
         } else {
             barbellWeight = 15
         }
-        
-        print(barbellWeight)
         
     }
     

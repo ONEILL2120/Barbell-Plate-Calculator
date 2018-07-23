@@ -8,32 +8,77 @@
 
 import UIKit
 
+enum PlateCalculatorError {
+    case noAvailablePlates
+    case notEnoughPlates(_: Float)
+}
+
+extension PlateCalculatorError: LocalizedError {
+    var errorDescription: String? {
+    switch self {
+    case .noAvailablePlates:
+        return "No available plates, Please add plates using setup page."
+    case .notEnoughPlates(let missingAmount):
+        return "Not enough plates available, you need \(missingAmount)Kg."
+        }
+    }
+}
+
+
 class PlateCalculator {
+    
     
     private let plates : [Plate] = Plate.allCases
     
-    public func calculate(weightInKg weight: Float, availablePlates: [Plate:Int]) -> [Plate] {
+    public func calculate(weightInKg weight: Float, availablePlates: [Plate:Int], barbellWeightSelected: Float) throws -> [Plate] {
         
-        let barWeight: Float = 20
+        if availablePlates.isEmpty {
+           throw PlateCalculatorError.noAvailablePlates
+        }
+        
+        let barWeight: Float = barbellWeightSelected
         
         var weightToAddToBar = weight - barWeight
         
         var result = [Plate]()
-       
-        for (key, value) in availablePlates {
-            
-            while weightToAddToBar / key.kg >= 2 {
-                weightToAddToBar -= (key.kg * 2)
+        
+        let sortedPlates = availablePlates.keys.sorted { (a, b) -> Bool in
+            a.rawValue > b.rawValue
+        }
+        
+        for plate in sortedPlates {
+            guard var amountAvailable = availablePlates[plate] else {
                 
-                result.append(key)
-                result.append(key)
+            continue
+            }
                 
+                while weightToAddToBar / plate.kg >= 2 && amountAvailable > 0 {
+                    
+                    if amountAvailable > 0 {
+                        result.append(plate)
+                        amountAvailable = amountAvailable - 1
+                        weightToAddToBar -= plate.kg
+                    }
+                    
+                    if amountAvailable > 0 {
+                        result.append(plate)
+                        amountAvailable = amountAvailable - 1
+                        weightToAddToBar -= plate.kg
+                    }
                 }
+        
+        }
+        
+        let amountOnBar = result.reduce(barWeight) { (result, plate) -> Float in
+            result + plate.rawValue
+        }
+        if amountOnBar != weight {
+            let missingAmount = weight - amountOnBar
+            throw PlateCalculatorError.notEnoughPlates(missingAmount)
         }
         
         return result
     }
-    
 }
 
 enum Plate: Float {
@@ -60,36 +105,40 @@ class ViewController: UIViewController, PresentsAlert {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var barbellWeightSelected: Float = 20
+    
     var availablePlates = [Plate:Int]()
     
     let allPlates = Plate.allCases
     
-    //is this needed?
     private var groupedPlates = [Plate: [Plate]]()
     
     @IBAction func calculatePlates(_ sender: Any) {
         
         let calc = PlateCalculator()
         
-        guard let weightText = weightTextField.text, let weight = Float(weightText) else {
+        if (weightTextField.text?.isEmpty)! {
+            createAlert(title: "Try Again", message: "Please enter a weight.")
+        }
+        
+        do {
             
-            return
-        }
+            guard let weightText = weightTextField.text, let weight = Float(weightText) else {
+                
+                return
+            }
+            
+            let plates = try calc.calculate(weightInKg: weight, availablePlates: availablePlates, barbellWeightSelected: barbellWeightSelected)
+            groupedPlates = self.calcGroupedPlates(plates: plates)
+            } catch {
+            showErrorAlert(error: error)
+            }
         
-        if availablePlates.isEmpty {
-            createAlert(title: "Error", message: "No Plates Available!")
-        }
-        
-        let plates = calc.calculate(weightInKg: weight, availablePlates: availablePlates)
-        groupedPlates = self.calcGroupedPlates(plates: plates)
-        
-        tableView.beginUpdates()
-        tableView.reloadSections(IndexSet.init(integer:0), with: .automatic)
-        tableView.endUpdates()
-        
+            tableView.beginUpdates()
+            tableView.reloadSections(IndexSet.init(integer:0), with: .automatic)
+            tableView.endUpdates()
     }
     
-    //edit this to use availblePlates?
     private func calcGroupedPlates (plates: [Plate]) -> [Plate:[Plate]] {
         
         var result = [Plate:[Plate]]()
@@ -108,7 +157,6 @@ class ViewController: UIViewController, PresentsAlert {
                 result[plate] = plates
                 
             }
-            
         }
         
         return result
@@ -139,9 +187,9 @@ class ViewController: UIViewController, PresentsAlert {
 }
 
 extension ViewController: SettingsViewControllerDelegate {
-   func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate : Int]) {
+    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate : Int], barbellWeightSelected barbellWeight: Float) {
         availablePlates = plateCount
-        
+        barbellWeightSelected = barbellWeight
        }
     
    }
@@ -202,6 +250,5 @@ extension PresentsAlert where Self: UIViewController {
     }
     
 }
-
 
 
