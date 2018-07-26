@@ -37,6 +37,8 @@ protocol SettingsViewControllerDelegate: class {
 }
 
 
+
+
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var barbellSwitch: UISwitch!
