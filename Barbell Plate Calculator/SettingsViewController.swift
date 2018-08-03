@@ -36,10 +36,60 @@ protocol SettingsViewControllerDelegate: class {
     
 }
 
+class Settings: Codable {
+    var barbellWeight: Float
+    var plateCount: [Plate:Int]
+    
+    init(barbellWeight: Float, plateCount: [Plate:Int]) {
+        self.barbellWeight = barbellWeight
+        self.plateCount = plateCount
+    }
+}
 
+class SettingsPersistence {
+    
+    private let url: URL
+    private let fileManager = FileManager()
+    
+    init() {
+    
+    let documentDirectoryURL = try! fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    self.url = documentDirectoryURL.appendingPathComponent("settings.json")
+        
+    }
+    
+    func save(plateCount: [Plate:Int], barbellWeight: Float) throws {
+        let settings = Settings(barbellWeight: barbellWeight, plateCount: plateCount)
+        try save(settings: settings)
+        
+    }
+    
+    private func save(settings: Settings) throws {
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(settings)
+        try! data.write(to: url)
+    }
+    
+    func load() throws -> Settings {
+        if !fileManager.fileExists(atPath: url.path){
+         let defaultSettings = Settings(barbellWeight: 20, plateCount: [
+            .twentyKg : 20,
+            .tenKg : 10
+            ])
+            
+            try save(settings: defaultSettings)
+            return defaultSettings
+            
+        }
+        
+        let decoder = JSONDecoder()
+        let data = try! Data(contentsOf: url)
+        let settings = try! decoder.decode(Settings.self, from: data)
+        return settings
+    }
+}
 
-
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, PresentsAlert {
     
     @IBOutlet weak var barbellSwitch: UISwitch!
 
@@ -47,13 +97,22 @@ class SettingsViewController: UIViewController {
     var plates = Plate.allCases
     var platesCount = [Plate:Int]()
     var barbellWeight: Float = 20
+    private let persistence = SettingsPersistence()
     
     
     @IBOutlet weak var setupTableView: UITableView!
     
     @IBAction func done(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        delegate?.SettingsViewController(self, isDoneWithPlateCount: platesCount, barbellWeightSelected: barbellWeight)
+        
+        do {
+            try persistence.save(plateCount: platesCount, barbellWeight: barbellWeight)
+            
+        } catch {
+            
+            showErrorAlert(error: error)
+        }
+        
         
     }
     

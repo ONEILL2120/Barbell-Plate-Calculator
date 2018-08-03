@@ -49,7 +49,7 @@ class PlateCalculator {
         for plate in sortedPlates {
             guard var amountAvailable = availablePlates[plate] else {
                 
-            continue
+                continue
             }
                 
                 while weightToAddToBar / plate.kg >= 2 && amountAvailable > 0 {
@@ -98,6 +98,7 @@ enum Plate: Float {
         return self.rawValue
         }
     }
+
 
 class ViewController: UIViewController, PresentsAlert {
     

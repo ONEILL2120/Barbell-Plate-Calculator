@@ -44,10 +44,17 @@ class PlateCalculatorTests: XCTestCase {
     
     func test105kgReturnsTwo25kgAndTwo15kgAndTwo2_5kg() {
     
-        let result = calculator.calculate(weightInKg: 105)
+        let result = calculator.calculate(weightInKg: 105, availablePlates: [Plate:Int], barbellWeightSelected: 20)
         
         XCTAssertEqual([25,25,15,15,2.5,2.5], result)
     
+    }
+    
+    func testWeCan200KG() {
+        let availablePlates = [
+        Plate.twentyKg = 100,
+        Plate.tenKg = 2
+        ]
     }
     
     
