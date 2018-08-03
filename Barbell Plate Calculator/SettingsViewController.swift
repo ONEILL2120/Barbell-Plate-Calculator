@@ -19,6 +19,17 @@ class WeightTableViewCell: UITableViewCell {
     
     weak var delegate: WeightTableViewCellDelegate?
     
+    public func configure(plate: Plate, settings: Settings){
+        
+        let count = settings.plateCount[plate] ?? 0
+        
+        
+        weightLabel.text = "\(plate.kg) KG"
+        numberOfPlates.text = "\(count)"
+        stepper.value = Double(count)
+        
+    }
+    
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var numberOfPlates: UILabel!
     @IBOutlet weak var stepper: UIStepper!
@@ -32,7 +43,7 @@ class WeightTableViewCell: UITableViewCell {
 }
 
 protocol SettingsViewControllerDelegate: class {
-    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate:Int], barbellWeightSelected: Float)
+    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithSettings settings: Settings)
     
 }
 
@@ -58,15 +69,9 @@ class SettingsPersistence {
         
     }
     
-    func save(plateCount: [Plate:Int], barbellWeight: Float) throws {
-        let settings = Settings(barbellWeight: barbellWeight, plateCount: plateCount)
-        try save(settings: settings)
-        
-    }
-    
-    private func save(settings: Settings) throws {
+    public func save(settings: Settings) throws {
         let encoder = JSONEncoder()
-        let data = try! encoder.encode(settings)
+        let data = try encoder.encode(settings)
         try! data.write(to: url)
     }
     
@@ -83,8 +88,8 @@ class SettingsPersistence {
         }
         
         let decoder = JSONDecoder()
-        let data = try! Data(contentsOf: url)
-        let settings = try! decoder.decode(Settings.self, from: data)
+        let data = try Data(contentsOf: url)
+        let settings = try decoder.decode(Settings.self, from: data)
         return settings
     }
 }
@@ -94,10 +99,10 @@ class SettingsViewController: UIViewController, PresentsAlert {
     @IBOutlet weak var barbellSwitch: UISwitch!
 
     weak var delegate: SettingsViewControllerDelegate?
+    
     var plates = Plate.allCases
-    var platesCount = [Plate:Int]()
-    var barbellWeight: Float = 20
     private let persistence = SettingsPersistence()
+    private var settings: Settings!
     
     
     @IBOutlet weak var setupTableView: UITableView!
@@ -106,10 +111,10 @@ class SettingsViewController: UIViewController, PresentsAlert {
         dismiss(animated: true, completion: nil)
         
         do {
-            try persistence.save(plateCount: platesCount, barbellWeight: barbellWeight)
+            try persistence.save(settings:settings)
+            delegate?.SettingsViewController(self, isDoneWithSettings: settings)
             
         } catch {
-            
             showErrorAlert(error: error)
         }
         
@@ -125,9 +130,9 @@ class SettingsViewController: UIViewController, PresentsAlert {
     
     @objc func switchIsChanged(barbellSwitch: UISwitch){
         if barbellSwitch.isOn {
-            barbellWeight = 20
+            settings.barbellWeight = 20
         } else {
-            barbellWeight = 15
+            settings.barbellWeight = 15
         }
         
     }
@@ -139,6 +144,14 @@ class SettingsViewController: UIViewController, PresentsAlert {
 
         // Do any additional setup after loading the view.
         barbellSwitch.addTarget(self, action: #selector(SettingsViewController.switchIsChanged(barbellSwitch:)), for: .valueChanged)
+        
+        do {
+            
+            settings = try persistence.load()
+            barbellSwitch.isOn = settings.barbellWeight == 20
+        } catch {
+            showErrorAlert(error: error)
+        }
     }
 
 }
@@ -152,9 +165,8 @@ extension SettingsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! WeightTableViewCell
         
         
-        let allPlates = plates[indexPath.row]
-        cell.weightLabel.text = "\(allPlates.kg) KG"
-        cell.delegate = self
+        let plate = plates[indexPath.row]
+        cell.configure(plate: plate, settings: settings)
         
         return cell
     }
@@ -167,7 +179,7 @@ extension SettingsViewController: WeightTableViewCellDelegate {
         }
         
         let plate = plates[indexPath.row]
-        platesCount[plate] = newValue
+        settings.plateCount[plate] = newValue
         
     }
 }

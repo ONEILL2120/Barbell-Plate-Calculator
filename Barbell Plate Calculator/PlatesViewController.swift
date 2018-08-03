@@ -30,24 +30,24 @@ class PlateCalculator {
     
     private let plates : [Plate] = Plate.allCases
     
-    public func calculate(weightInKg weight: Float, availablePlates: [Plate:Int], barbellWeightSelected: Float) throws -> [Plate] {
+    public func calculate(weightInKg weight: Float, settings: Settings) throws -> [Plate] {
         
-        if availablePlates.isEmpty {
+        if settings.plateCount.isEmpty {
            throw PlateCalculatorError.noAvailablePlates
         }
         
-        let barWeight: Float = barbellWeightSelected
+        let barWeight: Float = settings.barbellWeight
         
         var weightToAddToBar = weight - barWeight
         
         var result = [Plate]()
         
-        let sortedPlates = availablePlates.keys.sorted { (a, b) -> Bool in
+        let sortedPlates = settings.plateCount.keys.sorted { (a, b) -> Bool in
             a.rawValue > b.rawValue
         }
         
         for plate in sortedPlates {
-            guard var amountAvailable = availablePlates[plate] else {
+            guard var amountAvailable = settings.plateCount[plate] else {
                 
                 continue
             }
@@ -81,7 +81,7 @@ class PlateCalculator {
     }
 }
 
-enum Plate: Float {
+enum Plate: Float, Codable {
     case twentyFiveKg = 25
     case twentyKg = 20
     case fifteenKg = 15
@@ -106,9 +106,8 @@ class ViewController: UIViewController, PresentsAlert {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var barbellWeightSelected: Float = 20
-    
-    var availablePlates = [Plate:Int]()
+    private var settings: Settings!
+    private let settingsPersistence = SettingsPersistence()
     
     let allPlates = Plate.allCases
     
@@ -129,7 +128,7 @@ class ViewController: UIViewController, PresentsAlert {
                 return
             }
             
-            let plates = try calc.calculate(weightInKg: weight, availablePlates: availablePlates, barbellWeightSelected: barbellWeightSelected)
+            let plates = try calc.calculate(weightInKg: weight, settings: settings)
             groupedPlates = self.calcGroupedPlates(plates: plates)
             } catch {
             showErrorAlert(error: error)
@@ -168,6 +167,11 @@ class ViewController: UIViewController, PresentsAlert {
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
         
+        do{
+            settings = try settingsPersistence.load()
+        } catch {
+            showErrorAlert(error: error)
+        }
         
     }
 
@@ -188,10 +192,9 @@ class ViewController: UIViewController, PresentsAlert {
 }
 
 extension ViewController: SettingsViewControllerDelegate {
-    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithPlateCount plateCount: [Plate : Int], barbellWeightSelected barbellWeight: Float) {
-        availablePlates = plateCount
-        barbellWeightSelected = barbellWeight
-       }
+    func SettingsViewController(_ viewController: SettingsViewController, isDoneWithSettings settings: Settings) {
+        return self.settings = settings
+    }
     
    }
 
