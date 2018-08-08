@@ -193,7 +193,7 @@ class ViewController: UIViewController, PresentsAlert {
 
 extension ViewController: SettingsViewControllerDelegate {
     func SettingsViewController(_ viewController: SettingsViewController, isDoneWithSettings settings: Settings) {
-        return self.settings = settings
+        self.settings = settings
     }
     
    }

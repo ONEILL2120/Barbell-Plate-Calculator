@@ -137,6 +137,12 @@ class SettingsViewController: UIViewController, PresentsAlert {
         
     }
     
+    @IBAction func changeTheme(_ sender: Any) {
+     
+        
+        
+    }
+    
  
     
     override func viewDidLoad() {
@@ -164,9 +170,9 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! WeightTableViewCell
         
-        
         let plate = plates[indexPath.row]
         cell.configure(plate: plate, settings: settings)
+        cell.delegate = self
         
         return cell
     }

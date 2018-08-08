@@ -12,6 +12,7 @@
 		A6220E6C207A8950002A39EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6220E6A207A8950002A39EE /* Main.storyboard */; };
 		A6220E6E207A8950002A39EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6220E6D207A8950002A39EE /* Assets.xcassets */; };
 		A6220E71207A8950002A39EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6220E6F207A8950002A39EE /* LaunchScreen.storyboard */; };
+		A622A8A2211786C80092F88F /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A622A8A1211786C80092F88F /* Themes.swift */; };
 		A62567C4208CE88000D38028 /* PlateCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62567C3208CE88000D38028 /* PlateCalculatorTests.swift */; };
 		A62567D2208F4FCB00D38028 /* PlateAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62567D1208F4FCB00D38028 /* PlateAssignmentTests.swift */; };
 		A66B60EC20E1116800D783D0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66B60EB20E1116800D783D0 /* SettingsViewController.swift */; };
@@ -42,6 +43,7 @@
 		A6220E6D207A8950002A39EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6220E70207A8950002A39EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A6220E72207A8950002A39EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A622A8A1211786C80092F88F /* Themes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		A62567C1208CE88000D38028 /* PlateCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlateCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A62567C3208CE88000D38028 /* PlateCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlateCalculatorTests.swift; sourceTree = "<group>"; };
 		A62567C5208CE88000D38028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				A6220E68207A8950002A39EE /* PlatesViewController.swift */,
 				A6220E6A207A8950002A39EE /* Main.storyboard */,
 				A66B60EB20E1116800D783D0 /* SettingsViewController.swift */,
+				A622A8A1211786C80092F88F /* Themes.swift */,
 				A6220E6D207A8950002A39EE /* Assets.xcassets */,
 				A6220E6F207A8950002A39EE /* LaunchScreen.storyboard */,
 				A6220E72207A8950002A39EE /* Info.plist */,
@@ -265,6 +268,7 @@
 				A6220E69207A8950002A39EE /* PlatesViewController.swift in Sources */,
 				A6220E67207A8950002A39EE /* AppDelegate.swift in Sources */,
 				A66B60EC20E1116800D783D0 /* SettingsViewController.swift in Sources */,
+				A622A8A2211786C80092F88F /* Themes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
