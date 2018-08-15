@@ -84,6 +84,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="enterWeightLabel" destination="td8-we-9vI" id="x5J-ub-eGC"/>
                         <outlet property="tableView" destination="CVG-67-5r3" id="ece-RW-n5R"/>
                         <outlet property="weightTextField" destination="kJu-nc-AtD" id="F9s-c8-S7U"/>
                     </connections>
@@ -175,8 +176,8 @@
                                     <outlet property="delegate" destination="MNM-Hq-dNm" id="nHk-dd-s6r"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Barbell Weight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr3-SQ-5wo">
-                                <rect key="frame" x="120" y="151" width="134" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barbell Weight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr3-SQ-5wo">
+                                <rect key="frame" x="120" y="151" width="135" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="sYQ-aF-ig8"/>
                                 </constraints>
@@ -208,8 +209,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhI-px-9xW">
-                                <rect key="frame" x="120" y="80" width="134" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhI-px-9xW">
+                                <rect key="frame" x="120" y="80" width="136" height="30"/>
                                 <state key="normal" title="Change Theme"/>
                                 <connections>
                                     <action selector="changeTheme:" destination="MNM-Hq-dNm" eventType="touchUpInside" id="NuY-iz-IcT"/>
@@ -223,7 +224,7 @@
                             <constraint firstItem="Kr3-SQ-5wo" firstAttribute="leading" secondItem="Aca-KE-WcM" secondAttribute="leading" constant="120" id="6kR-sa-NF8"/>
                             <constraint firstItem="qlq-mO-jep" firstAttribute="top" secondItem="HHi-o6-vi0" secondAttribute="bottom" constant="8" symbolic="YES" id="9rg-Kf-ljq"/>
                             <constraint firstItem="HHi-o6-vi0" firstAttribute="centerX" secondItem="qlq-mO-jep" secondAttribute="centerX" id="BHU-gv-RBy"/>
-                            <constraint firstItem="bhI-px-9xW" firstAttribute="trailing" secondItem="Kr3-SQ-5wo" secondAttribute="trailing" id="FFb-76-b0s"/>
+                            <constraint firstItem="bhI-px-9xW" firstAttribute="trailing" secondItem="Kr3-SQ-5wo" secondAttribute="trailing" constant="1" id="FFb-76-b0s"/>
                             <constraint firstItem="qaR-Bg-eUW" firstAttribute="leading" secondItem="bvf-w6-ufh" secondAttribute="trailing" constant="28" id="HNu-Hj-hIZ"/>
                             <constraint firstItem="Kib-ba-cms" firstAttribute="leading" secondItem="Aca-KE-WcM" secondAttribute="leading" constant="56" id="IKv-HM-fAc"/>
                             <constraint firstItem="bhI-px-9xW" firstAttribute="top" secondItem="KJd-lS-6n6" secondAttribute="bottom" constant="16" id="Ib1-c7-A1P"/>
@@ -246,6 +247,10 @@
                     <connections>
                         <outlet property="barbellSwitch" destination="bvf-w6-ufh" id="Rbb-Aq-X3m"/>
                         <outlet property="setupTableView" destination="qlq-mO-jep" id="EA4-CJ-67t"/>
+                        <outletCollection property="settingsLabels" destination="qaR-Bg-eUW" collectionClass="NSMutableArray" id="15s-2T-sfT"/>
+                        <outletCollection property="settingsLabels" destination="Kib-ba-cms" collectionClass="NSMutableArray" id="aW0-n5-1X9"/>
+                        <outletCollection property="settingsLabels" destination="Kr3-SQ-5wo" collectionClass="NSMutableArray" id="ysv-7V-kIm"/>
+                        <outletCollection property="settingsLabels" destination="HHi-o6-vi0" collectionClass="NSMutableArray" id="IMI-cR-mLa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3XV-s3-I2u" userLabel="First Responder" sceneMemberID="firstResponder"/>

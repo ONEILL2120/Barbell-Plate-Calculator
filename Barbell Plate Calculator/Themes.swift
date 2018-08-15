@@ -15,14 +15,25 @@ enum Theme: Int {
     
     case Default, Dark, Graphical
     
+    var tintColour: UIColor {
+        switch self {
+        case .Default:
+            return .green
+        case .Dark:
+            return .red
+        case .Graphical:
+            return .black
+        }
+    }
+    
     var mainColour: UIColor {
         switch self {
         case .Default:
-            return UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 95.0/255.0, alpha: 1.0)
+            return .white
         case .Dark:
-            return UIColor(red: 242.0/255.0, green: 101.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+            return .black
         case .Graphical:
-            return UIColor(red: 10.0/255.0, green: 10.0/255.0, blue: 10.0/255.0, alpha: 1.0)
+            return .gray
         }
     }
 }
@@ -37,13 +48,25 @@ struct ThemeManager {
             }
         }
     
+    static func applyCurrentTheme() {
+        applyTheme(currentTheme())
+    }
+    
     static func applyTheme(_ theme: Theme) {
         
         UserDefaults.standard.setValue(theme.rawValue, forKey: SelectedThemeKey)
         UserDefaults.standard.synchronize()
         
         let sharedApplication = UIApplication.shared
-        sharedApplication.delegate?.window??.tintColor = theme.mainColour
-    }
     
-    }
+        sharedApplication.delegate?.window??.tintColor = theme.tintColour
+        
+        UINavigationBar.appearance().tintColor = theme.tintColour
+        UINavigationBar.appearance().barTintColor = theme.mainColour
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.tintColour]
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ThemeUpdated"), object: theme)
+        }
+    
+}

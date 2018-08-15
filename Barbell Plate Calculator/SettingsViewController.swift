@@ -107,6 +107,8 @@ class SettingsViewController: UIViewController, PresentsAlert {
     
     @IBOutlet weak var setupTableView: UITableView!
     
+    @IBOutlet var settingsLabels: [UILabel]!
+    
     @IBAction func done(_ sender: Any) {
         dismiss(animated: true, completion: nil)
         
@@ -138,15 +140,29 @@ class SettingsViewController: UIViewController, PresentsAlert {
     }
     
     @IBAction func changeTheme(_ sender: Any) {
-     
+     let theme = ThemeManager.currentTheme()
         
+        var nextThemeRawValue = theme.rawValue + 1
+        if nextThemeRawValue > 2 {
+            nextThemeRawValue = 0
+        }
+        
+        let nextTheme = Theme.init(rawValue: nextThemeRawValue)!
+        
+        ThemeManager.applyTheme(nextTheme)
         
     }
     
- 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        applyCurrentTheme()
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applyCurrentTheme), name: NSNotification.Name(rawValue: "ThemeUpdated"), object: nil)
 
         // Do any additional setup after loading the view.
         barbellSwitch.addTarget(self, action: #selector(SettingsViewController.switchIsChanged(barbellSwitch:)), for: .valueChanged)
@@ -158,8 +174,33 @@ class SettingsViewController: UIViewController, PresentsAlert {
         } catch {
             showErrorAlert(error: error)
         }
+        
+        applyCurrentTheme()
+        
     }
+    
+    @objc private func applyCurrentTheme() {
+        let theme = ThemeManager.currentTheme()
+        view.backgroundColor = theme.mainColour
+        setupTableView.backgroundColor = theme.mainColour
+        barbellSwitch.tintColor = theme.tintColour
+        barbellSwitch.onTintColor = theme.tintColour
+        
+        if let navigationBar = navigationController?.navigationBar {
+        
+            navigationBar.barTintColor = theme.mainColour
+            navigationBar.tintColor = theme.tintColour
+            navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.tintColour]
 
+        }
+        
+        for label in settingsLabels {
+            label.textColor = theme.tintColour
+        }
+        
+        setupTableView.reloadData()
+    }
+    
 }
 
 extension SettingsViewController: UITableViewDataSource {
@@ -173,6 +214,13 @@ extension SettingsViewController: UITableViewDataSource {
         let plate = plates[indexPath.row]
         cell.configure(plate: plate, settings: settings)
         cell.delegate = self
+        
+        let theme = ThemeManager.currentTheme()
+        cell.backgroundColor = theme.mainColour
+        cell.weightLabel.textColor = theme.tintColour
+        cell.textLabel?.textColor = theme.tintColour
+        cell.numberOfPlates.textColor = theme.tintColour
+        
         
         return cell
     }

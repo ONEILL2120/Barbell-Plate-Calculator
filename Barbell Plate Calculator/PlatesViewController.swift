@@ -105,6 +105,7 @@ class ViewController: UIViewController, PresentsAlert {
     @IBOutlet weak var weightTextField: UITextField!
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var enterWeightLabel: UILabel!
     
     private var settings: Settings!
     private let settingsPersistence = SettingsPersistence()
@@ -137,6 +138,17 @@ class ViewController: UIViewController, PresentsAlert {
             tableView.beginUpdates()
             tableView.reloadSections(IndexSet.init(integer:0), with: .automatic)
             tableView.endUpdates()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let theme = ThemeManager.currentTheme()
+        view.backgroundColor = theme.mainColour
+        tableView.backgroundColor = theme.mainColour
+        enterWeightLabel.textColor = theme.tintColour
+        tableView.reloadData()
+        
     }
     
     private func calcGroupedPlates (plates: [Plate]) -> [Plate:[Plate]] {
@@ -212,18 +224,22 @@ extension ViewController: UITableViewDataSource {
             
             cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
             
+            
         }
       
-        
+        let theme = ThemeManager.currentTheme()
         let plate = allPlates[indexPath.row]
         
         cell?.textLabel?.text = "\(plate.kg) KG"
+        cell?.textLabel?.textColor = theme.tintColour
+        cell?.backgroundColor = theme.mainColour
+        
         
         
         if let plates = groupedPlates[plate] {
             cell?.detailTextLabel?.text = "\(plates.count)"
-            cell?.textLabel?.textColor = UIColor.black
-            
+            cell?.textLabel?.textColor = theme.tintColour
+            cell?.backgroundColor = theme.tintColour
         } else {
             cell?.detailTextLabel?.text = nil
             
