@@ -147,6 +147,7 @@ class ViewController: UIViewController, PresentsAlert {
         view.backgroundColor = theme.mainColour
         tableView.backgroundColor = theme.mainColour
         enterWeightLabel.textColor = theme.tintColour
+        weightTextField.textColor = theme.tintColour
         tableView.reloadData()
         
     }
@@ -233,13 +234,15 @@ extension ViewController: UITableViewDataSource {
         cell?.textLabel?.text = "\(plate.kg) KG"
         cell?.textLabel?.textColor = theme.tintColour
         cell?.backgroundColor = theme.mainColour
+        cell?.selectionStyle = .none
         
         
         
         if let plates = groupedPlates[plate] {
             cell?.detailTextLabel?.text = "\(plates.count)"
             cell?.textLabel?.textColor = theme.tintColour
-            cell?.backgroundColor = theme.tintColour
+            cell?.detailTextLabel?.textColor = theme.tintColour
+            cell?.selectionStyle = .none
         } else {
             cell?.detailTextLabel?.text = nil
             

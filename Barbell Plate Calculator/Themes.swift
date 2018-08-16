@@ -33,7 +33,7 @@ enum Theme: Int {
         case .Dark:
             return .black
         case .Graphical:
-            return .gray
+            return .yellow
         }
     }
 }

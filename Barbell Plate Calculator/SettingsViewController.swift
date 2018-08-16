@@ -151,6 +151,8 @@ class SettingsViewController: UIViewController, PresentsAlert {
         
         ThemeManager.applyTheme(nextTheme)
         
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -175,7 +177,9 @@ class SettingsViewController: UIViewController, PresentsAlert {
             showErrorAlert(error: error)
         }
         
+        
         applyCurrentTheme()
+    
         
     }
     
@@ -197,9 +201,23 @@ class SettingsViewController: UIViewController, PresentsAlert {
         for label in settingsLabels {
             label.textColor = theme.tintColour
         }
-        
+        appearances()
         setupTableView.reloadData()
+        
     }
+    
+    private func appearances() {
+        
+        let windows = UIApplication.shared.windows
+        for window in windows {
+            for view in window.subviews {
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+        
+    }
+    
     
 }
 
@@ -220,10 +238,13 @@ extension SettingsViewController: UITableViewDataSource {
         cell.weightLabel.textColor = theme.tintColour
         cell.textLabel?.textColor = theme.tintColour
         cell.numberOfPlates.textColor = theme.tintColour
+        cell.selectionStyle = .none
+        
         
         
         return cell
     }
+    
 }
 
 extension SettingsViewController: WeightTableViewCellDelegate {
